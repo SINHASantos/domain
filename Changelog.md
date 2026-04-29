@@ -8,9 +8,16 @@ New
 
 Improvements
 
+* Implemented `core::error::Error` instead of `std::error::Error` for error
+  types, reducing the need for the `std` feature flag. ([#641] by [@soywod])
+
 Bug fixes
 
 Other changes
+
+
+[#641]: https://github.com/NLnetLabs/domain/pull/641
+[@soywod]: https://github.com/soywod
 
 
 ## 0.12.0
