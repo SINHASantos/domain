@@ -310,27 +310,14 @@ jobs:
         # Cache by OS. Use a recently cached version of Rust nightly.
         key: ${{ runner.os }}-${{ runner.arch }}-nightly-clippy-
 
-    # Determine the Rust version provided by the cache.
-    #
-    # If we didn't restore from cache, use the latest nightly.
-    - name: Determine the cached Rust version
-      id: determine-rust-version
-      run: |
-        if [[ -f target/rust-version ]]; then
-          echo "rust-version=$(cat target/rust-version)" >> "$GITHUB_OUTPUT"
-        else
-          echo "rust-version=nightly" >> "$GITHUB_OUTPUT"
-        fi
-
     # Set up the Rust toolchain.
     - name: Set up Rust nightly
-      id: setup-rust
-      uses: actions-rust-lang/setup-rust-toolchain@v1
-      with:
-        toolchain: ${{ steps.determine-rust-version.outputs.rust-version }}
-        components: clippy
-        cache: false
-        matcher: false
+      run: |
+        # Determine the version to install. Fall back to `nightly`.
+        [[ -f target/rust-version ]] && version=$(cat target/rust-version)
+        version=${version:-nightly}
+        rustup toolchain install --component clippy $version 
+        rustup default $version
 
     # Enable a problem matcher to get inline annotations.
     - name: Enable annotations
