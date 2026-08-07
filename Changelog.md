@@ -12,11 +12,15 @@ Improvements
 
 Bug fixes
 
+* Don’t compress the names in RP records. ([#702] by [@SebastiaanYN])
+
 Unstable features
 
 Other changes
 
 [#699]: https://github.com/NLnetLabs/domain/pull/699
+[#702]: https://github.com/NLnetLabs/domain/pull/702
+[@SebastiaanYN]: https://github.com/SebastiaanYN
 
 
 ## 0.12.2
